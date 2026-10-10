@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NLD — Comprendre ce qu'est un site vitrine</title>
+<meta name="description" content="Découvrez simplement ce qu'est un site vitrine, ce qu'il peut contenir et comment il peut présenter votre activité professionnellement sur Internet.">
+<meta property="og:title" content="NLD — Comprendre ce qu'est un site vitrine">
+<meta property="og:description" content="Un site vitrine qui explique ce qu'est un site vitrine, en étant lui-même un site vitrine.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2312151c'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='30' fill='%23e8a33d' text-anchor='middle'%3EN%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+/* ============================================================
+   0. TOKENS
+   ============================================================ */
+:root{
+  --bg:#12151c;
+  --bg-soft:#171b24;
+  --surface:#1e2330;
+  --surface-2:#262c3c;
+  --border:#313a4d;
+  --text:#eef0f3;
+  --text-muted:#99a1b3;
+  --accent:#e8a33d;
+  --accent-ink:#3a2607;
+  --accent-soft:rgba(232,163,61,.13);
+  --accent-2:#4fb0a5;
+  --accent-2-soft:rgba(79,176,165,.13);
+  --radius-sm:6px;
+  --radius-md:14px;
+  --radius-lg:26px;
+  --serif:'Fraunces', Georgia, serif;
+  --sans:'Work Sans', -apple-system, sans-serif;
+  --wrap:1180px;
+  --ease:cubic-bezier(.22,.7,.24,1);
+}
+
+/* NOVA STUDIO demo palette, scoped */
+.demo-window{
+  --demo-bg:#f6efe3;
+  --demo-surface:#fffaf1;
+  --demo-ink:#241f19;
+  --demo-muted:#83786a;
+  --demo-accent:#c1603a;
+  --demo-accent-2:#6d7b58;
+  --demo-border:#e6dbc8;
+}
+
+/* ============================================================
+   1. RESET & BASE
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important;}
+}
+body{
+  font-family:var(--sans);
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img,svg{display:block;max-width:100%;}
+a{color:inherit;text-decoration:none;}
+ul{list-style:none;}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.12;letter-spacing:-.01em;}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:24px;}
+section{position:relative;padding:96px 0;}
+@media(max-width:720px){section{padding:64px 0;}}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px;}
+.skip-link{position:absolute;left:16px;top:-60px;background:var(--accent);color:var(--accent-ink);padding:10px 16px;border-radius:8px;font-weight:600;z-index:999;transition:top .2s var(--ease);}
+.skip-link:focus{top:16px;}
+
+.eyebrow{
+  font-family:var(--sans);
+  font-size:.8rem;
+  font-weight:600;
+  color:var(--accent);
+  display:inline-flex;
+  align-items:center;
+  gap:.55em;
+  margin-bottom:18px;
+}
+.eyebrow::before{content:"";width:22px;height:1px;background:var(--accent);}
+
+.section-head{max-width:640px;margin-bottom:48px;}
+.section-head h2{font-size:clamp(1.8rem,3.4vw,2.6rem);margin-bottom:14px;}
+.section-head p{color:var(--text-muted);font-size:1.05rem;max-width:52ch;}
+.section-head.center{margin-inline:auto;text-align:center;}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.5em;
+  padding:14px 26px;border-radius:100px;font-weight:600;font-size:.97rem;
+  transition:transform .25s var(--ease),background .25s, border-color .25s, color .25s;
+  white-space:nowrap;
+}
+.btn-primary{background:var(--accent);color:var(--accent-ink);}
+.btn-primary:hover{transform:translateY(-2px);}
+.btn-ghost{border:1px solid var(--border);color:var(--text);}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+.btn-sm{padding:10px 18px;font-size:.88rem;}
+
+/* ============================================================
+   2. HEADER
+   ============================================================ */
+header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(18,21,28,.82);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+}
+.header-row{display:flex;align-items:center;justify-content:space-between;height:76px;gap:24px;}
+.brand{display:flex;align-items:center;gap:12px;}
+.brand-mark{
+  width:38px;height:38px;border-radius:10px;background:var(--accent);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-weight:700;color:var(--accent-ink);font-size:1.15rem;
+  flex-shrink:0;
+}
+.brand-text{display:flex;flex-direction:column;line-height:1.15;}
+.brand-text strong{font-family:var(--serif);font-size:1.1rem;font-weight:600;}
+.brand-text span{font-size:.72rem;color:var(--text-muted);display:none;}
+@media(min-width:860px){.brand-text span{display:block;}}
+
+nav.main-nav{display:none;gap:30px;}
+nav.main-nav a{font-size:.93rem;color:var(--text-muted);transition:color .2s;position:relative;}
+nav.main-nav a:hover{color:var(--text);}
+@media(min-width:980px){nav.main-nav{display:flex;}}
+
+.header-actions{display:flex;align-items:center;gap:12px;}
+.header-actions .btn-primary{display:none;}
+@media(min-width:640px){.header-actions .btn-primary{display:inline-flex;}}
+
+.menu-toggle{
+  width:42px;height:42px;border-radius:10px;border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+}
+@media(min-width:980px){.menu-toggle{display:none;}}
+.menu-toggle svg{width:18px;height:18px;}
+
+.mobile-nav{
+  position:fixed;inset:76px 0 0 0;background:var(--bg);z-index:99;
+  padding:32px 24px;transform:translateY(-8px);opacity:0;pointer-events:none;
+  transition:opacity .25s var(--ease), transform .25s var(--ease);
+  display:flex;flex-direction:column;gap:4px;
+}
+.mobile-nav.open{opacity:1;transform:translateY(0);pointer-events:auto;}
+.mobile-nav a{padding:16px 4px;border-bottom:1px solid var(--border);font-size:1.15rem;font-family:var(--serif);}
+.mobile-nav .btn{margin-top:24px;align-self:flex-start;}
+
+.progress-bar{position:fixed;top:0;left:0;height:2px;background:var(--accent);z-index:200;width:0%;}
+
+/* ============================================================
+   3. HERO
+   ============================================================ */
+.hero{padding-top:76px;min-height:92vh;display:flex;align-items:center;}
+.hero .wrap{display:grid;grid-template-columns:1fr;gap:56px;align-items:center;}
+@media(min-width:960px){.hero .wrap{grid-template-columns:1.05fr 1fr;}}
+.hero-copy h1{font-size:clamp(2.3rem,5.2vw,3.6rem);margin-bottom:22px;max-width:14ch;}
+.hero-copy p{font-size:1.15rem;color:var(--text-muted);max-width:46ch;margin-bottom:34px;}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:14px;}
+
+.hero-visual{position:relative;isolation:isolate;opacity:0;transform:translateY(18px);transition:opacity .8s var(--ease), transform .8s var(--ease);}
+.hero-visual.in{opacity:1;transform:translateY(0);}
+
+.device-stack{position:relative;height:380px;}
+.device{position:absolute;background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:0 30px 60px -20px rgba(0,0,0,.55);overflow:hidden;}
+.device .screen{position:absolute;inset:0;padding:10px;}
+.device .bar{height:8px;border-radius:4px;background:var(--surface-2);margin-bottom:6px;}
+.device-desktop{width:78%;height:300px;top:0;left:0;border-radius:14px;}
+.device-desktop::before{content:"";position:absolute;top:0;left:0;right:0;height:26px;background:var(--surface-2);display:flex;}
+.device-desktop .screen{top:26px;}
+.device-tablet{width:34%;height:220px;right:0;bottom:20px;border-radius:20px;}
+.device-phone{width:20%;height:150px;left:8%;bottom:-10px;border-radius:22px;box-shadow:0 20px 40px -12px rgba(0,0,0,.6);}
+.dot-row{position:absolute;top:8px;left:10px;display:flex;gap:5px;}
+.dot-row span{width:6px;height:6px;border-radius:50%;background:var(--text-muted);opacity:.5;}
+.block-accent{background:linear-gradient(135deg,var(--accent-soft),transparent);}
+.block-hero-mini{height:34px !important;background:var(--accent-soft) !important;border:1px solid var(--accent-soft);}
+.grid-mini{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:6px;}
+.grid-mini .bar{height:34px;background:var(--surface-2);}
+
+/* chapter rail (desktop only) */
+.chapter-rail{
+  position:fixed;right:26px;top:50%;transform:translateY(-50%);z-index:80;
+  display:none;flex-direction:column;gap:14px;
+}
+@media(min-width:1240px){.chapter-rail{display:flex;}}
+.chapter-rail button{
+  width:9px;height:9px;border-radius:50%;background:var(--border);
+  transition:background .25s, transform .25s;position:relative;
+}
+.chapter-rail button.active{background:var(--accent);transform:scale(1.3);}
+.chapter-rail button::after{
+  content:attr(data-label);position:absolute;right:20px;top:50%;transform:translateY(-50%);
+  font-size:.75rem;white-space:nowrap;background:var(--surface);border:1px solid var(--border);
+  padding:5px 10px;border-radius:6px;opacity:0;pointer-events:none;transition:opacity .2s;
+}
+.chapter-rail button:hover::after{opacity:1;}
+
+/* ============================================================
+   4. SECTION — ALORS C'EST QUOI (magasin -> site vitrine)
+   ============================================================ */
+.compare-shop{display:grid;grid-template-columns:1fr;gap:20px;}
+@media(min-width:800px){.compare-shop{grid-template-columns:1fr auto 1fr;align-items:center;}}
+.shop-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);
+  padding:34px;transition:transform .6s var(--ease), opacity .6s var(--ease);
+}
+.shop-card h3{font-size:1.3rem;margin-bottom:20px;}
+.shop-card ul{display:flex;flex-direction:column;gap:14px;}
+.shop-card li{display:flex;align-items:center;gap:12px;font-size:.97rem;color:var(--text-muted);}
+.shop-card li b{color:var(--text);font-weight:500;}
+.icon-dot{width:34px;height:34px;border-radius:9px;background:var(--surface-2);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.icon-dot svg{width:16px;height:16px;stroke:var(--accent);}
+.shop-card.after .icon-dot svg{stroke:var(--accent-2);}
+.shop-card.after .icon-dot{background:var(--accent-2-soft);}
+.shop-arrow{display:flex;align-items:center;justify-content:center;color:var(--text-muted);}
+.shop-arrow svg{width:26px;height:26px;}
+@media(max-width:799px){.shop-arrow{transform:rotate(90deg);margin:0 auto;}}
+.compare-shop .shop-card{opacity:0;transform:translateY(16px);}
+.compare-shop.in .shop-card{opacity:1;transform:translateY(0);}
+.compare-shop.in .shop-card.after{transition-delay:.12s;}
+
+.conclusion-line{
+  margin-top:44px;text-align:center;font-family:var(--serif);font-size:1.35rem;
+  max-width:38ch;margin-inline:auto;color:var(--text);
+}
+
+/* ============================================================
+   5. NOVA STUDIO — DEMO
+   ============================================================ */
+.demo-section .section-head{max-width:100%;text-align:center;margin-inline:auto;}
+.demo-frame-wrap{max-width:920px;margin-inline:auto;}
+.demo-label{
+  display:inline-flex;align-items:center;gap:8px;background:var(--accent-soft);color:var(--accent);
+  font-size:.75rem;font-weight:600;padding:6px 14px;border-radius:100px;margin-bottom:18px;
+}
+.demo-label::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);}
+
+.demo-window{
+  background:var(--demo-bg);border-radius:18px;overflow:hidden;
+  border:1px solid var(--border);box-shadow:0 40px 80px -30px rgba(0,0,0,.6);
+  color:var(--demo-ink);
+}
+.demo-chrome{
+  background:var(--demo-surface);border-bottom:1px solid var(--demo-border);
+  padding:12px 16px;display:flex;align-items:center;gap:12px;
+}
+.demo-chrome .traffic{display:flex;gap:6px;}
+.demo-chrome .traffic span{width:9px;height:9px;border-radius:50%;background:var(--demo-border);}
+.demo-url{
+  flex:1;background:var(--demo-bg);border-radius:100px;padding:6px 16px;font-size:.78rem;
+  color:var(--demo-muted);text-align:center;font-family:var(--sans);
+}
+.demo-nav{display:flex;gap:2px;background:var(--demo-surface);border-bottom:1px solid var(--demo-border);padding:0 12px;overflow-x:auto;}
+.demo-nav button{
+  padding:14px 14px;font-size:.83rem;font-weight:500;color:var(--demo-muted);
+  border-bottom:2px solid transparent;white-space:nowrap;
+}
+.demo-nav button.active{color:var(--demo-ink);border-color:var(--demo-accent);}
+
+.demo-body{padding:0;min-height:460px;}
+.demo-panel{display:none;padding:44px 34px;animation:demoFade .35s var(--ease);}
+.demo-panel.active{display:block;}
+@keyframes demoFade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+.demo-hero{text-align:center;padding:20px 0 34px;}
+.demo-hero .demo-mark{
+  width:52px;height:52px;border-radius:14px;background:var(--demo-accent);color:var(--demo-surface);
+  display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:700;
+  margin:0 auto 18px;font-size:1.3rem;
+}
+.demo-hero h3{font-family:var(--serif);font-size:1.9rem;margin-bottom:10px;}
+.demo-hero p{color:var(--demo-muted);max-width:40ch;margin:0 auto 22px;}
+.demo-btn{display:inline-block;background:var(--demo-accent);color:var(--demo-surface);padding:11px 22px;border-radius:100px;font-size:.88rem;font-weight:600;}
+
+.demo-grid{display:grid;grid-template-columns:1fr;gap:16px;}
+@media(min-width:640px){.demo-grid{grid-template-columns:repeat(3,1fr);}}
+.demo-card{background:var(--demo-surface);border:1px solid var(--demo-border);border-radius:12px;padding:22px;}
+.demo-card h4{font-family:var(--serif);font-size:1.05rem;margin-bottom:8px;}
+.demo-card p{font-size:.86rem;color:var(--demo-muted);}
+.demo-swatch{height:100px;border-radius:9px;margin-bottom:14px;background:linear-gradient(135deg,var(--demo-accent),var(--demo-accent-2));opacity:.85;}
+.demo-swatch:nth-child(3n+2){filter:hue-rotate(15deg);}
+
+.demo-quote{background:var(--demo-surface);border:1px solid var(--demo-border);border-radius:12px;padding:22px;font-size:.92rem;}
+.demo-quote p{margin-bottom:12px;font-style:italic;}
+.demo-quote span{font-size:.8rem;color:var(--demo-muted);}
+
+.demo-contact-grid{display:grid;gap:12px;max-width:340px;margin:0 auto;}
+.demo-contact-grid a{border:1px solid var(--demo-border);border-radius:10px;padding:13px 16px;font-size:.88rem;display:flex;justify-content:space-between;background:var(--demo-surface);}
+
+.demo-caption{text-align:center;color:var(--text-muted);font-size:.92rem;margin-top:22px;max-width:52ch;margin-inline:auto;}
+
+/* ============================================================
+   6. SECTION — CE QUE CONTIENT / POUR QUI
+   ============================================================ */
+.content-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px;margin-bottom:56px;}
+.content-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);
+  padding:26px;transition:border-color .25s, transform .25s;
+}
+.content-card:hover{border-color:var(--accent);transform:translateY(-3px);}
+.content-card .icon-dot{margin-bottom:16px;width:40px;height:40px;}
+.content-card h4{font-family:var(--serif);font-size:1.08rem;margin-bottom:6px;}
+.content-card p{font-size:.88rem;color:var(--text-muted);}
+
+.profiles-block h3{font-size:1.15rem;margin-bottom:6px;font-family:var(--serif);}
+.profiles-block>p{color:var(--text-muted);font-size:.94rem;margin-bottom:20px;}
+.profile-tags{display:flex;flex-wrap:wrap;gap:10px;}
+.profile-tags span{
+  border:1px solid var(--border);padding:8px 16px;border-radius:100px;font-size:.85rem;color:var(--text-muted);
+  transition:border-color .2s, color .2s;
+}
+.profile-tags span:hover{border-color:var(--accent-2);color:var(--text);}
+
+/* ============================================================
+   7. AVANT / APRES
+   ============================================================ */
+.toggle-row{display:flex;justify-content:center;margin-bottom:44px;}
+.toggle-switch{
+  display:inline-flex;background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:4px;gap:2px;
+}
+.toggle-switch button{padding:10px 26px;border-radius:100px;font-size:.9rem;font-weight:600;color:var(--text-muted);transition:.25s;}
+.toggle-switch button.active{background:var(--accent);color:var(--accent-ink);}
+
+.chaos-stage{position:relative;height:340px;max-width:640px;margin:0 auto 40px;}
+.chaos-chip{
+  position:absolute;background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  padding:12px 18px;font-size:.85rem;font-weight:500;display:flex;align-items:center;gap:8px;
+  transition:top .7s var(--ease), left .7s var(--ease), transform .7s var(--ease), opacity .5s;
+  box-shadow:0 14px 30px -14px rgba(0,0,0,.5);
+}
+.chaos-chip svg{width:14px;height:14px;stroke:var(--accent-2);flex-shrink:0;}
+.chaos-stageafter{}
+.result-url{
+  text-align:center;font-family:var(--serif);font-size:1.1rem;color:var(--accent-2);
+  opacity:0;transition:opacity .4s var(--ease) .5s;
+}
+.chaos-stage.after ~ .result-url,.state-after .result-url{opacity:1;}
+
+/* ============================================================
+   8. VITRINE VS APPLICATION
+   ============================================================ */
+.vs-grid{display:grid;grid-template-columns:1fr;gap:22px;}
+@media(min-width:840px){.vs-grid{grid-template-columns:1fr 1fr;}}
+.vs-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:38px;}
+.vs-card.vitrine{border-top:3px solid var(--accent);}
+.vs-card.app{border-top:3px solid var(--accent-2);}
+.vs-card h3{font-family:var(--serif);font-size:1.4rem;margin-bottom:4px;}
+.vs-goal{font-size:.86rem;color:var(--text-muted);margin-bottom:22px;}
+.vs-goal b{color:var(--text);}
+.vs-card ul{display:flex;flex-direction:column;gap:10px;margin-bottom:22px;}
+.vs-card li{font-size:.92rem;color:var(--text-muted);padding-left:18px;position:relative;}
+.vs-card li::before{content:"";position:absolute;left:0;top:.55em;width:6px;height:6px;border-radius:50%;background:var(--border);}
+.vs-phrase{font-style:italic;font-size:.95rem;color:var(--text);border-top:1px solid var(--border);padding-top:18px;}
+.vs-conclusion{text-align:center;margin-top:34px;color:var(--text-muted);max-width:44ch;margin-inline:auto;}
+
+/* ============================================================
+   9. POURQUOI
+   ============================================================ */
+.benefits-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;}
+.benefit-item{background:var(--bg-soft);padding:32px 28px;}
+.benefit-item h4{font-family:var(--serif);font-size:1.1rem;margin-bottom:8px;}
+.benefit-item p{font-size:.88rem;color:var(--text-muted);}
+.benefit-note{
+  margin-top:26px;font-size:.85rem;color:var(--text-muted);border-left:2px solid var(--accent);
+  padding-left:16px;max-width:60ch;
+}
+
+/* ============================================================
+   10. COMBIEN CA COUTE
+   ============================================================ */
+.cost-panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:40px;}
+.cost-cols{display:grid;grid-template-columns:1fr;gap:32px;}
+@media(min-width:760px){.cost-cols{grid-template-columns:1fr 1fr;}}
+.cost-cols h4{font-family:var(--serif);font-size:1.05rem;margin-bottom:16px;}
+.cost-tags{display:flex;flex-wrap:wrap;gap:9px;}
+.cost-tags span{background:var(--surface-2);border:1px solid var(--border);padding:8px 14px;border-radius:8px;font-size:.83rem;color:var(--text-muted);}
+.cost-message{text-align:center;font-family:var(--serif);font-size:1.2rem;margin:34px 0 22px;}
+.cost-cta{text-align:center;}
+
+/* ============================================================
+   11. FAQ
+   ============================================================ */
+.faq-list{max-width:760px;margin-inline:auto;border-top:1px solid var(--border);}
+.faq-item{border-bottom:1px solid var(--border);}
+.faq-q{
+  width:100%;display:flex;justify-content:space-between;align-items:center;gap:20px;
+  padding:22px 4px;text-align:left;font-size:1.02rem;font-weight:500;font-family:var(--serif);
+}
+.faq-q svg{width:16px;height:16px;flex-shrink:0;transition:transform .3s var(--ease);stroke:var(--accent);}
+.faq-item.open .faq-q svg{transform:rotate(45deg);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s var(--ease);}
+.faq-a p{padding:0 4px 22px;color:var(--text-muted);font-size:.95rem;max-width:64ch;}
+
+/* ============================================================
+   12. CTA FINAL
+   ============================================================ */
+.cta-final{background:linear-gradient(180deg,var(--bg-soft),var(--bg));text-align:center;}
+.cta-final h2{font-size:clamp(2rem,4.4vw,3rem);margin-bottom:18px;}
+.cta-final .lead{font-size:1.15rem;color:var(--text-muted);max-width:52ch;margin:0 auto 10px;}
+.cta-final .lead-2{font-family:var(--serif);font-size:1.3rem;margin:26px auto 10px;max-width:36ch;}
+.cta-final .sub{color:var(--text-muted);max-width:54ch;margin:0 auto 34px;}
+.cta-final .hero-ctas{justify-content:center;}
+
+/* ============================================================
+   13. CONTACT
+   ============================================================ */
+.contact-grid{display:grid;grid-template-columns:1fr;gap:16px;max-width:520px;margin:44px auto 0;}
+@media(min-width:560px){.contact-grid{grid-template-columns:1fr 1fr;}}
+.contact-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);
+  padding:24px;display:flex;flex-direction:column;gap:10px;transition:border-color .25s, transform .25s;
+}
+.contact-card:hover{border-color:var(--accent);transform:translateY(-3px);}
+.contact-card .icon-dot{background:var(--accent-soft);}
+.contact-card .icon-dot svg{stroke:var(--accent);}
+.contact-card strong{font-family:var(--serif);font-size:1.02rem;}
+.contact-card span{color:var(--text-muted);font-size:.88rem;}
+
+/* ============================================================
+   14. FOOTER
+   ============================================================ */
+footer{border-top:1px solid var(--border);padding:64px 0 32px;background:var(--bg-soft);}
+.footer-top{display:grid;grid-template-columns:1fr;gap:40px;margin-bottom:44px;}
+@media(min-width:760px){.footer-top{grid-template-columns:1.3fr 1fr 1fr;}}
+.footer-brand .brand{margin-bottom:14px;}
+.footer-brand p{color:var(--text-muted);font-size:.9rem;max-width:34ch;margin-bottom:16px;}
+.footer-quote{font-family:var(--serif);font-style:italic;font-size:.95rem;color:var(--text-muted);max-width:30ch;}
+.footer-col h5{font-size:.82rem;text-transform:none;color:var(--text-muted);margin-bottom:16px;font-weight:600;}
+.footer-col a,.footer-col span{display:block;font-size:.92rem;color:var(--text-muted);margin-bottom:12px;transition:color .2s;}
+.footer-col a:hover{color:var(--accent);}
+.footer-bottom{
+  border-top:1px solid var(--border);padding-top:26px;display:flex;flex-wrap:wrap;
+  gap:12px;justify-content:space-between;font-size:.8rem;color:var(--text-muted);
+}
+
+/* generic reveal helper */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s var(--ease),transform .6s var(--ease);}
+.reveal.in{opacity:1;transform:translateY(0);}
+
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Aller au contenu</a>
+<div class="progress-bar" id="progressBar"></div>
+
+<header>
+  <div class="wrap header-row">
+    <a href="#" class="brand" aria-label="NLD — accueil">
+      <span class="brand-mark">N</span>
+      <span class="brand-text">
+        <strong>NLD</strong>
+        <span>Web Design · Development · Digital Experiences</span>
+      </span>
+    </a>
+    <nav class="main-nav" aria-label="Navigation principale">
+      <a href="#comprendre">Comprendre</a>
+      <a href="#exemple">Exemple</a>
+      <a href="#pourquoi">Pourquoi</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <a href="#contact" class="btn btn-primary btn-sm">Demander un devis</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="#comprendre">Comprendre</a>
+  <a href="#exemple">Exemple</a>
+  <a href="#contenu">Contenu</a>
+  <a href="#pourquoi">Pourquoi</a>
+  <a href="#tarif">Tarif</a>
+  <a href="#faq">FAQ</a>
+  <a href="#contact">Contact</a>
+  <a href="#contact" class="btn btn-primary">Demander un devis</a>
+</div>
+
+<nav class="chapter-rail" aria-label="Progression de lecture">
+  <button data-target="#hero" data-label="Introduction" class="active"></button>
+  <button data-target="#comprendre" data-label="Comprendre"></button>
+  <button data-target="#exemple" data-label="Exemple"></button>
+  <button data-target="#contenu" data-label="Contenu"></button>
+  <button data-target="#avant-apres" data-label="Avant / Après"></button>
+  <button data-target="#vs-app" data-label="Vs application"></button>
+  <button data-target="#pourquoi" data-label="Pourquoi"></button>
+  <button data-target="#tarif" data-label="Tarif"></button>
+  <button data-target="#faq" data-label="FAQ"></button>
+  <button data-target="#contact" data-label="Contact"></button>
+</nav>
+
+<main id="main">
+
+  <!-- ========= HERO ========= -->
+  <section class="hero" id="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <p class="eyebrow">NLD — Web Design</p>
+        <h1>Votre activité mérite plus qu'une simple adresse.</h1>
+        <p>Un site vitrine présente votre activité, vos services, votre identité et vos moyens de contact sur Internet, 24h/24.</p>
+        <div class="hero-ctas">
+          <a href="#comprendre" class="btn btn-primary">Découvrir</a>
+          <a href="#exemple" class="btn btn-ghost">Voir un exemple</a>
+        </div>
+      </div>
+      <div class="hero-visual" id="heroVisual">
+        <div class="device-stack">
+          <div class="device device-desktop">
+            <div class="dot-row"><span></span><span></span><span></span></div>
+            <div class="screen">
+              <div class="bar block-hero-mini"></div>
+              <div class="grid-mini">
+                <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+              </div>
+              <div class="bar" style="width:60%;margin-top:8px;"></div>
+              <div class="bar" style="width:40%;"></div>
+            </div>
+          </div>
+          <div class="device device-tablet">
+            <div class="screen" style="top:10px;">
+              <div class="bar block-hero-mini" style="height:44px;"></div>
+              <div class="bar" style="margin-top:8px;"></div>
+              <div class="bar" style="width:70%;"></div>
+            </div>
+          </div>
+          <div class="device device-phone">
+            <div class="screen" style="top:10px;">
+              <div class="bar block-hero-mini" style="height:28px;"></div>
+              <div class="bar"></div>
+              <div class="bar" style="width:55%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========= COMPRENDRE (magasin -> site vitrine) ========= -->
+  <section id="comprendre">
+    <div class="wrap">
+      <div class="section-head center">
+        <p class="eyebrow" style="justify-content:center;">Comprendre</p>
+        <h2>Alors, c'est quoi un site vitrine ?</h2>
+        <p style="margin-inline:auto;">Imaginez votre activité comme un magasin.</p>
+      </div>
+
+      <div class="compare-shop reveal-group" id="shopCompare">
+        <div class="shop-card">
+          <h3>Votre magasin</h3>
+          <ul>
+            <li><span class="icon-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 10l9-6 9 6M5 10v10h14V10"/></svg></span><b>Une façade</b></li>
+            <li><span class="icon-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="7" width="16" height="6" rx="1"/></svg></span><b>Une enseigne</b></li>
+            <li><span class="icon-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16"/></svg></span><b>Des produits, des services</b></li>
+            <li><span class="icon-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 6h16M4 12h16M4 18h10"/></svg></span><b>Des informations</b></li>
+            <li><span class="icon-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2z"/></svg></span><b>Un moyen de contact</b></li>
+          </ul>
+        </div>
+        <div class="shop-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </div>
+        <div class="shop-card after">
+          <h3>Votre site vitrine</h3>
+          <ul>
+            <li><span class="icon-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg></span><b>Une page d'accueil</b></li>
+            <li><span class="icon-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c1.2-3.4 4-5 7-5s5.8 1.6 7 5"/></svg></span><b>Votre identité</b></li>
+            <li><span class="icon-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20V10l8-6 8 6v10"/><path d="M9 20v-6h6v6"/></svg></span><b>Vos services</b></li>
+            <li><span class="icon-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 15l4.5-4.5L12 15l3-3 6 6"/></svg></span><b>Vos réalisations</b></li>
+            <li><span class="icon-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16v16H4z"/><path d="M4 9h16M9 4v16"/></svg></span><b>Vos infos &amp; contact</b></li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="conclusion-line">« Un site vitrine est votre espace professionnel sur Internet. »</p>
+    </div>
+  </section>
+
+  <!-- ========= EXEMPLE — NOVA STUDIO ========= -->
+  <section class="demo-section" id="exemple">
+    <div class="wrap">
+      <div class="section-head center" style="max-width:640px;">
+        <div class="demo-label">Exemple de site vitrine</div>
+        <h2>Voici, concrètement, un site vitrine.</h2>
+        <p style="margin-inline:auto;">NOVA STUDIO est une entreprise fictive. Naviguez dans son mini-site comme le ferait un visiteur — tout est cliquable.</p>
+      </div>
+
+      <div class="demo-frame-wrap">
+        <div class="demo-window">
+          <div class="demo-chrome">
+            <div class="traffic"><span></span><span></span><span></span></div>
+            <div class="demo-url">novastudio.exemple</div>
+          </div>
+          <div class="demo-nav" id="demoNav" role="tablist" aria-label="Navigation du site de démonstration">
+            <button class="active" data-panel="demoAccueil" role="tab" aria-selected="true">Accueil</button>
+            <button data-panel="demoApropos" role="tab" aria-selected="false">Studio</button>
+            <button data-panel="demoServices" role="tab" aria-selected="false">Prestations</button>
+            <button data-panel="demoRealisations" role="tab" aria-selected="false">Réalisations</button>
+            <button data-panel="demoAvis" role="tab" aria-selected="false">Avis</button>
+            <button data-panel="demoContact" role="tab" aria-selected="false">Contact</button>
+          </div>
+
+          <div class="demo-body">
+            <div class="demo-panel active" id="demoAccueil">
+              <div class="demo-hero">
+                <div class="demo-mark">NS</div>
+                <h3>NOVA STUDIO</h3>
+                <p>Studio créatif — identité visuelle, photographie et sites vitrines pour les marques qui démarrent.</p>
+                <span class="demo-btn">Discuter d'un projet</span>
+              </div>
+            </div>
+
+            <div class="demo-panel" id="demoApropos">
+              <h4 style="font-family:var(--serif);font-size:1.3rem;margin-bottom:12px;">Le studio</h4>
+              <p style="color:var(--demo-muted);max-width:56ch;">Fondé en 2021, NOVA STUDIO accompagne des indépendants et petites entreprises dans la construction d'une image professionnelle cohérente, du logo jusqu'au site web.</p>
+            </div>
+
+            <div class="demo-panel" id="demoServices">
+              <div class="demo-grid">
+                <div class="demo-card"><h4>Identité visuelle</h4><p>Logo, palette, typographie et supports de communication.</p></div>
+                <div class="demo-card"><h4>Photographie produit</h4><p>Prises de vue destinées au web et aux réseaux sociaux.</p></div>
+                <div class="demo-card"><h4>Site vitrine</h4><p>Conception d'un site professionnel adapté à votre activité.</p></div>
+              </div>
+            </div>
+
+            <div class="demo-panel" id="demoRealisations">
+              <div class="demo-grid">
+                <div><div class="demo-swatch"></div><h4>Atelier Ferrand</h4><p>Ébénisterie artisanale</p></div>
+                <div><div class="demo-swatch"></div><h4>Maison Kalu</h4><p>Traiteur événementiel</p></div>
+                <div><div class="demo-swatch"></div><h4>Studio Belma</h4><p>Photographie de portrait</p></div>
+              </div>
+            </div>
+
+            <div class="demo-panel" id="demoAvis">
+              <div class="demo-grid">
+                <div class="demo-quote"><p>« Le studio a su traduire exactement l'image que je voulais donner à mon activité. »</p><span>— Aline, traiteur</span></div>
+                <div class="demo-quote"><p>« Un accompagnement clair du premier échange jusqu'à la mise en ligne. »</p><span>— Junior, artisan</span></div>
+                <div class="demo-quote"><p>« Le site final ressemble vraiment à mon travail, pas à un modèle générique. »</p><span>— Belma, photographe</span></div>
+              </div>
+            </div>
+
+            <div class="demo-panel" id="demoContact">
+              <div class="demo-contact-grid">
+                <a href="#">Téléphone <span>+00 000 00 00</span></a>
+                <a href="#">Email <span>contact@novastudio.exemple</span></a>
+                <a href="#">WhatsApp <span>Écrire un message</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="demo-caption">Accueil, présentation, services, réalisations, témoignages, contact : ce sont exactement les sections que l'on retrouve dans la majorité des sites vitrines.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========= CE QUE CONTIENT / POUR QUI ========= -->
+  <section id="contenu">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Anatomie</p>
+        <h2>Que peut-on y mettre ?</h2>
+        <p>Reprenons les sections que vous venez de parcourir dans l'exemple : voici à quoi sert chacune d'elles.</p>
+      </div>
+
+      <div class="content-grid">
+        <div class="content-card"><span class="icon-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 10l9-6 9 6M5 10v10h14V10"/></svg></span><h4>Accueil</h4><p>Présente rapidement votre activité et ce que vous proposez.</p></div>
+        <div class="content-card"><span class="icon-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c1.2-3.4 4-5 7-5s5.8 1.6 7 5"/></svg></span><h4>À propos</h4><p>Présente votre entreprise ou votre parcours en tant que professionnel.</p></div>
+        <div class="content-card"><span class="icon-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20V10l8-6 8 6v10"/><path d="M9 20v-6h6v6"/></svg></span><h4>Services</h4><p>Détaille les prestations que vous proposez.</p></div>
+        <div class="content-card"><span class="icon-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 15l4.5-4.5L12 15l3-3 6 6"/></svg></span><h4>Réalisations</h4><p>Montre des projets ou travaux déjà réalisés.</p></div>
+        <div class="content-card"><span class="icon-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span><h4>Galerie</h4><p>Présente des photos et contenus visuels de votre activité.</p></div>
+        <div class="content-card"><span class="icon-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 8h10M7 12h6M4 4h16v13H8l-4 4V4z"/></svg></span><h4>Témoignages</h4><p>Affiche les retours et avis de vos clients.</p></div>
+        <div class="content-card"><span class="icon-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2z"/></svg></span><h4>Contact</h4><p>Permet au visiteur de vous joindre facilement.</p></div>
+      </div>
+
+      <div class="profiles-block">
+        <h3>Pour qui ?</h3>
+        <p>Ce concept ne concerne pas uniquement les grandes entreprises — il s'applique à tous ces profils :</p>
+        <div class="profile-tags">
+          <span>Entrepreneur</span><span>Freelance</span><span>Restaurant</span><span>Photographe</span>
+          <span>Designer</span><span>Développeur</span><span>Agence</span><span>École</span>
+          <span>Association</span><span>Cabinet</span><span>Artiste</span><span>Prestataire de services</span><span>Entreprise</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========= AVANT / APRES ========= -->
+  <section id="avant-apres">
+    <div class="wrap">
+      <div class="section-head center">
+        <p class="eyebrow" style="justify-content:center;">Aujourd'hui, sans site</p>
+        <h2>Vos informations, dispersées... ou réunies.</h2>
+        <p style="margin-inline:auto;">Aujourd'hui, beaucoup d'activités existent en ligne, mais de façon éclatée. Regardez ce que cela donne une fois réuni.</p>
+      </div>
+
+      <div class="toggle-row">
+        <div class="toggle-switch" id="avantApresToggle">
+          <button class="active" data-state="avant">Avant</button>
+          <button data-state="apres">Après</button>
+        </div>
+      </div>
+
+      <div class="chaos-stage" id="chaosStage">
+        <!-- chips positioned via JS -->
+      </div>
+      <p class="result-url" id="resultUrl">votre-activite.com</p>
+      <p class="conclusion-line">« Le site vitrine rassemble votre présence professionnelle au même endroit. »</p>
+    </div>
+  </section>
+
+  <!-- ========= VS APPLICATION WEB ========= -->
+  <section id="vs-app">
+    <div class="wrap">
+      <div class="section-head center">
+        <p class="eyebrow" style="justify-content:center;">Ne pas confondre</p>
+        <h2>Site vitrine ou application web ?</h2>
+      </div>
+
+      <div class="vs-grid">
+        <div class="vs-card vitrine">
+          <h3>Site vitrine</h3>
+          <p class="vs-goal">Objectif : <b>présenter</b></p>
+          <ul>
+            <li>Présentation de l'activité</li>
+            <li>Services</li>
+            <li>Réalisations</li>
+            <li>Informations</li>
+            <li>Contact</li>
+          </ul>
+          <p class="vs-phrase">« Le visiteur vient principalement découvrir votre activité. »</p>
+        </div>
+        <div class="vs-card app">
+          <h3>Application web</h3>
+          <p class="vs-goal">Objectif : <b>permettre d'utiliser un service</b></p>
+          <ul>
+            <li>Connexion</li>
+            <li>Compte utilisateur</li>
+            <li>Tableau de bord</li>
+            <li>Commandes, réservations, paiements</li>
+            <li>Gestion de données</li>
+          </ul>
+          <p class="vs-phrase">« L'utilisateur vient principalement effectuer des actions. »</p>
+        </div>
+      </div>
+      <p class="vs-conclusion">« Les deux utilisent le web, mais ils répondent à des besoins différents. »</p>
+    </div>
+  </section>
+
+  <!-- ========= POURQUOI ========= -->
+  <section id="pourquoi">
+    <div class="wrap">
+      <div class="section-head center">
+        <p class="eyebrow" style="justify-content:center;">Bénéfices</p>
+        <h2>Pourquoi en avoir un ?</h2>
+      </div>
+
+      <div class="benefits-grid">
+        <div class="benefit-item"><h4>Crédibilité</h4><p>Présenter son activité de manière professionnelle.</p></div>
+        <div class="benefit-item"><h4>Visibilité</h4><p>Être accessible depuis Internet, où que soit le visiteur.</p></div>
+        <div class="benefit-item"><h4>Présentation</h4><p>Expliquer clairement ce que vous faites.</p></div>
+        <div class="benefit-item"><h4>Disponibilité</h4><p>Permettre aux visiteurs de découvrir votre activité à tout moment.</p></div>
+        <div class="benefit-item"><h4>Contact</h4><p>Faciliter la prise de contact, sans intermédiaire.</p></div>
+        <div class="benefit-item"><h4>Centralisation</h4><p>Regrouper vos informations importantes au même endroit.</p></div>
+      </div>
+
+      <p class="benefit-note">Un site vitrine ne garantit pas automatiquement plus de ventes ou de clients : ces résultats dépendent du projet, du contenu, du référencement et de la stratégie commerciale mise en place autour du site.</p>
+    </div>
+  </section>
+
+  <!-- ========= COMBIEN CA COUTE ========= -->
+  <section id="tarif">
+    <div class="wrap">
+      <div class="section-head center">
+        <p class="eyebrow" style="justify-content:center;">Budget</p>
+        <h2>Combien ça coûte ?</h2>
+        <p style="margin-inline:auto;">Le prix dépend entièrement du projet. Voici les éléments qui le font varier.</p>
+      </div>
+
+      <div class="cost-panel">
+        <div class="cost-cols">
+          <div>
+            <h4>Ce qui influence le projet</h4>
+            <div class="cost-tags">
+              <span>Nombre de pages</span><span>Niveau de personnalisation</span><span>Design</span>
+              <span>Animations</span><span>Fonctionnalités</span>
+            </div>
+          </div>
+          <div>
+            <h4>Ce qui l'accompagne</h4>
+            <div class="cost-tags">
+              <span>Rédaction</span><span>Photographie</span><span>Hébergement</span>
+              <span>Nom de domaine</span><span>Maintenance</span>
+            </div>
+          </div>
+        </div>
+        <p class="cost-message">« Un site vitrine peut être simple, élégant ou entièrement personnalisé. »</p>
+        <div class="cost-cta">
+          <a href="https://wa.me/243979337298?text=Bonjour%2C%20je%20souhaite%20un%20devis%20pour%20un%20site%20vitrine." class="btn btn-primary" target="_blank" rel="noopener">Demander un devis</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========= FAQ ========= -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-head center">
+        <p class="eyebrow" style="justify-content:center;">Questions fréquentes</p>
+        <h2>Encore quelques questions ?</h2>
+      </div>
+
+      <div class="faq-list" id="faqList">
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Un site vitrine est-il réservé aux entreprises ?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg></button>
+          <div class="faq-a"><p>Non. Freelances, artisans, associations, écoles ou professionnels indépendants peuvent tout à fait en avoir un.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Est-ce qu'il fonctionne sur téléphone ?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg></button>
+          <div class="faq-a"><p>Oui. Un site vitrine bien conçu s'adapte automatiquement aux smartphones, tablettes et ordinateurs.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Peut-on utiliser son propre nom de domaine ?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg></button>
+          <div class="faq-a"><p>Oui, c'est même recommandé pour une image professionnelle cohérente (par exemple votreactivite.com).</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Peut-on ajouter WhatsApp ?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg></button>
+          <div class="faq-a"><p>Oui, un bouton WhatsApp cliquable peut être intégré pour faciliter la prise de contact directe.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Peut-on ajouter un formulaire de contact ?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg></button>
+          <div class="faq-a"><p>Oui, en complément ou à la place des liens directs vers l'email et le téléphone.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Peut-on modifier le site plus tard ?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg></button>
+          <div class="faq-a"><p>Oui, un site vitrine peut évoluer : nouveaux contenus, nouvelles sections, nouvelles réalisations.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Quelle est la différence avec une application web ?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg></button>
+          <div class="faq-a"><p>Le site vitrine présente votre activité ; l'application web permet à l'utilisateur d'effectuer des actions (compte, commandes, réservations...).</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Si j'ai déjà Facebook ou Instagram, ai-je quand même besoin d'un site ?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg></button>
+          <div class="faq-a"><p>Les réseaux sociaux sont utiles, mais un site vitrine vous appartient entièrement et rassemble toutes vos informations à une seule adresse, sans dépendre d'un algorithme.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========= CTA FINAL ========= -->
+  <section class="cta-final">
+    <div class="wrap">
+      <h2>Maintenant, vous savez.</h2>
+      <p class="lead">Vous venez de découvrir ce qu'est un site vitrine… en visitant justement un site vitrine.</p>
+      <p class="lead-2">Et si votre activité avait son propre espace sur le web ?</p>
+      <p class="sub">Présentez votre activité, vos services, vos réalisations et vos moyens de contact dans une expérience pensée pour votre image.</p>
+      <div class="hero-ctas">
+        <a href="#contact" class="btn btn-primary">Créer mon site vitrine</a>
+        <a href="mailto:davidlufimpu8@gmail.com?subject=Demande%20de%20site%20vitrine" class="btn btn-ghost">Me contacter</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========= CONTACT ========= -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="section-head center">
+        <p class="eyebrow" style="justify-content:center;">Contact</p>
+        <h2>Parlons de votre projet</h2>
+      </div>
+
+      <div class="contact-grid">
+        <a href="https://wa.me/243979337298?text=Bonjour%2C%20je%20souhaite%20un%20devis%20pour%20un%20site%20vitrine." class="contact-card" target="_blank" rel="noopener">
+          <span class="icon-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2z"/></svg></span>
+          <strong>WhatsApp</strong>
+          <span>+243 979 337 298</span>
+        </a>
+        <a href="tel:+243979337298" class="contact-card">
+          <span class="icon-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2z"/></svg></span>
+          <strong>Téléphone</strong>
+          <span>+243 979 337 298</span>
+        </a>
+        <a href="mailto:davidlufimpu8@gmail.com?subject=Demande%20de%20site%20vitrine" class="contact-card" style="grid-column:1/-1;">
+          <span class="icon-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+          <strong>Email</strong>
+          <span>davidlufimpu8@gmail.com</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="brand">
+          <span class="brand-mark">N</span>
+          <span class="brand-text"><strong>NLD</strong></span>
+        </div>
+        <p>Web Design · Development · Digital Experiences</p>
+        <p class="footer-quote">« Une présence professionnelle commence par une bonne première impression. »</p>
+      </div>
+      <div class="footer-col">
+        <h5>Navigation</h5>
+        <a href="#hero">Accueil</a>
+        <a href="#comprendre">Comprendre</a>
+        <a href="#exemple">Exemple</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h5>Coordonnées</h5>
+        <a href="tel:+243979337298">+243 979 337 298</a>
+        <a href="mailto:davidlufimpu8@gmail.com">davidlufimpu8@gmail.com</a>
+        <span>Conçu par NLD — David Lufimpu</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 NLD. Tous droits réservés.</span>
+      <span>Site statique — aucune donnée personnelle n'est collectée ni suivie.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* Header scroll shadow / progress bar */
+  var progressBar = document.getElementById('progressBar');
+  function onScroll(){
+    var h = document.documentElement;
+    var scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    progressBar.style.width = scrolled + '%';
+  }
+  document.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  /* Mobile menu */
+  var menuToggle = document.getElementById('menuToggle');
+  var mobileNav = document.getElementById('mobileNav');
+  menuToggle.addEventListener('click', function(){
+    var open = mobileNav.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  mobileNav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      mobileNav.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded','false');
+    });
+  });
+
+  /* Hero entrance (single orchestrated moment) */
+  var heroVisual = document.getElementById('heroVisual');
+  requestAnimationFrame(function(){
+    setTimeout(function(){ heroVisual.classList.add('in'); }, 120);
+  });
+
+  /* Scroll reveal for named moments only */
+  var revealTargets = document.querySelectorAll('#shopCompare');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){ entry.target.classList.add('in'); io.unobserve(entry.target); }
+      });
+    }, {threshold:.3});
+    revealTargets.forEach(function(el){ io.observe(el); });
+  } else {
+    revealTargets.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  /* NOVA STUDIO demo tabs */
+  var demoNav = document.getElementById('demoNav');
+  demoNav.addEventListener('click', function(e){
+    var btn = e.target.closest('button');
+    if(!btn) return;
+    demoNav.querySelectorAll('button').forEach(function(b){
+      b.classList.remove('active'); b.setAttribute('aria-selected','false');
+    });
+    btn.classList.add('active'); btn.setAttribute('aria-selected','true');
+    document.querySelectorAll('.demo-panel').forEach(function(p){ p.classList.remove('active'); });
+    document.getElementById(btn.dataset.panel).classList.add('active');
+  });
+
+  /* Avant / Après chaos -> order */
+  var chaosItems = [
+    {label:'WhatsApp', icon:'M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2z'},
+    {label:'Instagram', icon:'M4 4h16v16H4zM12 12m-3.5 0a3.5 3.5 0 1 0 7 0a3.5 3.5 0 1 0 -7 0M17 6.5h.01'},
+    {label:'Facebook', icon:'M13 21v-8h3l1-4h-4V6.5A1.5 1.5 0 0 1 14.5 5H17V1h-3a5 5 0 0 0-5 5v3H6v4h3v8z'},
+    {label:'Photos éparpillées', icon:'M3 5h18v14H3zM8 9l3 3 2-2 4 5H5z'},
+    {label:'Numéro de téléphone', icon:'M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2z'},
+    {label:'Avis divers', icon:'M7 8h10M7 12h6M4 4h16v13H8l-4 4V4z'}
+  ];
+  var stage = document.getElementById('chaosStage');
+  var resultUrl = document.getElementById('resultUrl');
+  chaosItems.forEach(function(item, i){
+    var chip = document.createElement('div');
+    chip.className = 'chaos-chip';
+    chip.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="'+item.icon+'"/></svg><span>'+item.label+'</span>';
+    stage.appendChild(chip);
+  });
+  var chaosChips = stage.querySelectorAll('.chaos-chip');
+
+  var avantPositions = [
+    {top:'4%',left:'2%',rot:-6},{top:'2%',left:'46%',rot:4},{top:'14%',left:'74%',rot:-3},
+    {top:'52%',left:'8%',rot:5},{top:'60%',left:'54%',rot:-5},{top:'70%',left:'20%',rot:3}
+  ];
+  function layoutApres(){
+    var cols = 3, gapX = stage.clientWidth/cols, row=0;
+    chaosChips.forEach(function(chip, i){
+      var col = i % cols;
+      if(i>0 && col===0) row++;
+      chip.style.left = (col*gapX + gapX*0.08) + 'px';
+      chip.style.top = (row*84 + 20) + 'px';
+      chip.style.transform = 'rotate(0deg)';
+    });
+  }
+  function layoutAvant(){
+    chaosChips.forEach(function(chip, i){
+      var p = avantPositions[i % avantPositions.length];
+      chip.style.left = p.left; chip.style.top = p.top;
+      chip.style.transform = 'rotate('+p.rot+'deg)';
+    });
+  }
+  function setState(state){
+    if(state === 'apres'){ layoutApres(); resultUrl.style.opacity = 1; }
+    else { layoutAvant(); resultUrl.style.opacity = 0; }
+  }
+  layoutAvant();
+  var toggle = document.getElementById('avantApresToggle');
+  toggle.addEventListener('click', function(e){
+    var btn = e.target.closest('button');
+    if(!btn) return;
+    toggle.querySelectorAll('button').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    setState(btn.dataset.state);
+  });
+  window.addEventListener('resize', function(){
+    if(toggle.querySelector('.active').dataset.state === 'apres') layoutApres();
+  });
+
+  /* FAQ accordion */
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    var q = item.querySelector('.faq-q');
+    var a = item.querySelector('.faq-a');
+    q.addEventListener('click', function(){
+      var isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function(openItem){
+        openItem.classList.remove('open');
+        openItem.querySelector('.faq-q').setAttribute('aria-expanded','false');
+        openItem.querySelector('.faq-a').style.maxHeight = null;
+      });
+      if(!isOpen){
+        item.classList.add('open');
+        q.setAttribute('aria-expanded','true');
+        a.style.maxHeight = a.scrollHeight + 'px';
+      }
+    });
+  });
+
+  /* Chapter rail sync */
+  var railButtons = document.querySelectorAll('.chapter-rail button');
+  var chapterSections = Array.prototype.map.call(railButtons, function(b){
+    return document.querySelector(b.dataset.target);
+  });
+  railButtons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelector(btn.dataset.target).scrollIntoView({behavior:'smooth'});
+    });
+  });
+  if('IntersectionObserver' in window){
+    var railIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        var idx = chapterSections.indexOf(entry.target);
+        if(idx > -1 && entry.isIntersecting){
+          railButtons.forEach(function(b){ b.classList.remove('active'); });
+          railButtons[idx].classList.add('active');
+        }
+      });
+    }, {rootMargin:'-45% 0px -45% 0px'});
+    chapterSections.forEach(function(s){ if(s) railIO.observe(s); });
+  }
+
+})();
+</script>
+</body>
+</html>
